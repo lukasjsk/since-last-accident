@@ -1,17 +1,10 @@
-import { useEffect, useState } from "react";
 import { AlertCircle, FileText, ArrowUp } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "~/components/ui/card";
 
 export function Welcome() {
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    setIsVisible(true);
-  }, []);
-
   return (
     <main className="min-h-screen bg-gradient-to-b from-white to-gray-50 dark:from-gray-900 dark:to-gray-800 pt-16 pb-4">
-      <div className={`container mx-auto flex flex-col items-center gap-16 px-4 transition-opacity duration-700 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
+      <div className="container mx-auto flex flex-col items-center gap-16 px-4 transition-opacity duration-700 opacity-100">
         <header className="flex flex-col items-center gap-9">
           <h1 className="text-5xl font-bold text-center text-gray-900 dark:text-gray-100 tracking-tight">
             Since Last Accident
