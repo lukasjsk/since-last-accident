@@ -130,10 +130,13 @@ since-last-accident-rr/
 - Keep components focused on a single responsibility
 - Extract reusable logic into custom hooks
 
-### CSS
-- This project uses TailwindCSS for styling
-- Use Tailwind utility classes directly in components
-- For complex components, consider using Tailwind's @apply directive in CSS files
+### UI Components and Styling
+- This project uses shadcn UI library with TailwindCSS for styling
+- Prioritize using shadcn UI components over building components with plain Tailwind
+- shadcn UI components can be found in the `components/ui` directory
+- For custom styling needs, use Tailwind utility classes directly in components
+- For complex custom components, consider using Tailwind's @apply directive in CSS files
+- When adding new shadcn UI components, use the shadcn CLI
 
 ### Routing
 - This project uses React Router v7
