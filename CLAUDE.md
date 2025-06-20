@@ -2,6 +2,11 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Available MCP tools
+Always prioritize use of MCP tools for tasks. 
+- Implementation should be done using Serena MCP.
+- For information about APIs and libraries, use Context7 MCP.
+
 ## Development Commands
 
 - `npm run dev` - Start development server with HMR at http://localhost:5173
