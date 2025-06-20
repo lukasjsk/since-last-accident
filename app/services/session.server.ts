@@ -11,7 +11,7 @@ type SessionFlashData = {
 
 // You can add secrets to environment variables
 // For development, we'll use a default secret
-const secret = process.env.SESSION_SECRET || "default-secret-for-development";
+const secret = process.env.SESSION_SECRET || "dev-secret-change-in-production";
 
 export const sessionStorage = createCookieSessionStorage<
   SessionData,

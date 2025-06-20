@@ -22,8 +22,9 @@ async function seed() {
     console.log("🧹 Cleared existing data");
 
     // Create users
-    const adminPasswordHash = await bcrypt.hash("admin123", 10);
-    const userPasswordHash = await bcrypt.hash("user123", 10);
+    const saltRounds = Number(process.env.BCRYPT_ROUNDS) || 12;
+    const adminPasswordHash = await bcrypt.hash("admin123", saltRounds);
+    const userPasswordHash = await bcrypt.hash("user123", saltRounds);
 
     const [adminUser] = await db.insert(users).values({
       username: "admin",

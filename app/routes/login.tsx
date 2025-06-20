@@ -28,6 +28,13 @@ export async function action({ request }: ActionFunctionArgs) {
   const password = formData.get("password") as string;
 
   try {
+    // Validate input
+    if (!username || !password) {
+      return {
+        error: "Username and password are required",
+      };
+    }
+
     // Authenticate the user
     const user = await login(username, password);
     return createUserSession(user.id.toString(), "/");
@@ -38,6 +45,7 @@ export async function action({ request }: ActionFunctionArgs) {
     };
   }
 }
+
 
 function LoginForm({
   className,

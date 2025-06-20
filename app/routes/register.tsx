@@ -32,30 +32,45 @@ export async function action({ request }: ActionFunctionArgs) {
   const confirmPassword = formData.get("confirmPassword") as string;
   const role = formData.get("role") as "admin" | "user";
 
-  // Validate required fields
-  if (!username || !email || !password || !confirmPassword) {
-    return {
-      error: "All fields are required",
-    };
-  }
-
-  // Validate password match
-  if (password !== confirmPassword) {
-    return {
-      error: "Passwords do not match",
-    };
-  }
-
-  // Validate password length
-  if (password.length < 6) {
-    return {
-      error: "Password must be at least 6 characters long",
-    };
-  }
-
   try {
+    // Validate required fields
+    if (!username || !email || !password || !confirmPassword) {
+      return {
+        error: "All fields are required",
+      };
+    }
+
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return {
+        error: "Please enter a valid email address",
+      };
+    }
+
+    // Validate username format
+    if (username.length < 3 || !/^[a-zA-Z0-9._-]+$/.test(username)) {
+      return {
+        error: "Username must be at least 3 characters and contain only letters, numbers, dots, hyphens, and underscores",
+      };
+    }
+
+    // Validate password match
+    if (password !== confirmPassword) {
+      return {
+        error: "Passwords do not match",
+      };
+    }
+
+    // Validate password length
+    if (password.length < 6) {
+      return {
+        error: "Password must be at least 6 characters long",
+      };
+    }
+
     // Hash password
-    const passwordHash = await bcrypt.hash(password, 10);
+    const passwordHash = await bcrypt.hash(password, Number(process.env.BCRYPT_ROUNDS) || 12);
 
     // Create user
     await db.insert(users).values({
@@ -67,6 +82,8 @@ export async function action({ request }: ActionFunctionArgs) {
 
     return redirect("/");
   } catch (error) {
+    console.error("Registration error:", error);
+    
     // Handle duplicate username/email
     if (error instanceof Error && error.message.includes("UNIQUE constraint failed")) {
       return {
@@ -74,10 +91,11 @@ export async function action({ request }: ActionFunctionArgs) {
       };
     }
     return {
-      error: "Failed to create user",
+      error: "Failed to create user. Please try again.",
     };
   }
 }
+
 
 function RegisterForm({
   className,
