@@ -1,12 +1,17 @@
 import type { LoaderFunctionArgs } from "react-router";
-import { useLoaderData, Form } from "react-router";
+import { useLoaderData, Form, Link } from "react-router";
 import { requireAuth } from "~/services/auth";
+import { DashboardService } from "~/lib/services";
 import { Button } from "~/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const user = await requireAuth(request);
-  return { user };
+  
+  // Get dashboard stats
+  const dashboardStats = await DashboardService.getDashboardStats();
+  
+  return { user, dashboardStats };
 }
 
 export function meta() {
@@ -17,7 +22,7 @@ export function meta() {
 }
 
 export default function Home() {
-  const { user } = useLoaderData<typeof loader>();
+  const { user, dashboardStats } = useLoaderData<typeof loader>();
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -45,8 +50,14 @@ export default function Home() {
                 <CardTitle>Days Since Last Accident</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="text-4xl font-bold text-green-600">0</div>
-                <p className="text-gray-600">Keep up the good work!</p>
+                <div className="text-4xl font-bold text-green-600">
+                  {dashboardStats.overview.daysSinceLastAccident ?? "N/A"}
+                </div>
+                <p className="text-gray-600">
+                  {dashboardStats.overview.daysSinceLastAccident !== null 
+                    ? "Keep up the good work!" 
+                    : "No accidents recorded yet"}
+                </p>
               </CardContent>
             </Card>
 
@@ -55,7 +66,9 @@ export default function Home() {
                 <CardTitle>Total Issues</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="text-4xl font-bold text-blue-600">0</div>
+                <div className="text-4xl font-bold text-blue-600">
+                  {dashboardStats.overview.totalIssues}
+                </div>
                 <p className="text-gray-600">Issues logged</p>
               </CardContent>
             </Card>
@@ -65,7 +78,9 @@ export default function Home() {
                 <CardTitle>Resolved Issues</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="text-4xl font-bold text-purple-600">0</div>
+                <div className="text-4xl font-bold text-purple-600">
+                  {dashboardStats.overview.resolvedIssues}
+                </div>
                 <p className="text-gray-600">Solutions documented</p>
               </CardContent>
             </Card>
@@ -78,16 +93,20 @@ export default function Home() {
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                  <Button className="w-full">
-                    Report New Issue
-                  </Button>
-                  <Button variant="outline" className="w-full">
-                    Search Issues
-                  </Button>
-                  <Button variant="outline" className="w-full">
+                  <Link to="/issues/new" className="w-full">
+                    <Button className="w-full">
+                      Report New Issue
+                    </Button>
+                  </Link>
+                  <Link to="/issues" className="w-full">
+                    <Button variant="outline" className="w-full">
+                      Search Issues
+                    </Button>
+                  </Link>
+                  <Button variant="outline" className="w-full" disabled>
                     View Categories
                   </Button>
-                  <Button variant="outline" className="w-full">
+                  <Button variant="outline" className="w-full" disabled>
                     Analytics
                   </Button>
                 </div>
