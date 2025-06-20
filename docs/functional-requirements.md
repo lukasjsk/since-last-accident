@@ -29,7 +29,7 @@ The application serves as a centralized knowledge base for tracking development 
 - **Accessibility**: WCAG 2.1 AA compliant
 
 #### Key UI Components:
-- Issue creation/editing forms with rich text editor
+- Issue creation/editing forms with rich text editor (Markdown from shadcn)
 - Advanced search and filtering interface
 - Category management interface
 - Dashboard with metrics and visualizations
