@@ -6,9 +6,10 @@ A comprehensive knowledge management system for tracking development team incide
 
 ### Core Functionality
 - **Issue & Solution Database**: Comprehensive tracking of development team incidents and their solutions
+- **Category Management**: Organized categorization of issues with detailed statistics and navigation
 - **Authentication System**: Secure user authentication with role-based access control
 - **Dashboard Analytics**: Real-time metrics and "Days Since Last Accident" counters
-- **Search & Discovery**: Advanced search capabilities across issues and solutions
+- **Search & Discovery**: Advanced search capabilities across issues and solutions with category filtering
 - **Knowledge Base**: Searchable reference for future similar issues
 
 ### Technical Highlights
@@ -75,6 +76,30 @@ A comprehensive knowledge management system for tracking development team incide
    - Open your browser to `http://localhost:5173`
    - Use the test credentials below to log in
 
+## 🎯 Application Features
+
+### Dashboard Overview
+- **Days Since Last Accident**: Real-time counter showing incident-free periods
+- **Quick Statistics**: Total issues, resolved issues, and team performance metrics
+- **Quick Actions**: Direct access to report issues, search, and browse categories
+
+### Issue Management
+- **Create Issues**: Report new incidents with detailed descriptions, severity levels, and category assignment
+- **Browse & Search**: Advanced filtering by status, severity, category, and full-text search
+- **Track Progress**: Monitor issue resolution with status updates and progress tracking
+- **Tag System**: Organize issues with custom tags for better categorization
+
+### Category System
+- **Six Pre-defined Categories**: Build Issues, Deployment, Environment, Code Quality, Performance, Security
+- **Category Statistics**: Track issues per category with resolution rates and safety periods
+- **Category Navigation**: Browse issues by category with dedicated filtering
+- **Visual Indicators**: Color-coded categories for quick visual identification
+
+### User Roles & Security
+- **Admin Users**: Full access including user management and system configuration
+- **Standard Users**: Issue reporting, browsing, and basic operations
+- **Session Security**: Secure authentication with automatic session management
+
 ## 🔐 Test Credentials
 
 The seeded database includes the following test accounts:
@@ -119,13 +144,17 @@ app/
 ├── components/ui/          # Reusable UI components (shadcn/ui)
 ├── lib/
 │   ├── db/                # Database configuration and schema
+│   ├── models/            # Database models and operations
+│   ├── services/          # Business logic layer
 │   └── utils.ts           # Utility functions
 ├── routes/                # Application routes
+│   ├── categories.*.tsx   # Category management pages
+│   ├── issues.*.tsx       # Issue management pages
 │   ├── home.tsx          # Protected dashboard
 │   ├── login.tsx         # Authentication
 │   ├── logout.tsx        # Session termination
 │   └── register.tsx      # Admin-only user creation
-├── services/              # Business logic and authentication
+├── services/              # Authentication services
 └── welcome/              # Landing page assets
 ```
 
@@ -146,12 +175,28 @@ app/
 - [x] Protected routes and role-based access control
 - [x] Basic dashboard layout
 
+### ✅ Phase 2: Issues CRUD Operations (Completed)
+- [x] Complete issue management system with listing, creation, viewing, and editing
+- [x] Issue status management (Open, In Progress, Resolved, Archived)
+- [x] Severity levels (Low, Medium, High, Critical)
+- [x] Category assignment and tag support
+- [x] Advanced search and filtering capabilities
+- [x] Enhanced dashboard with real-time statistics
+
+### ✅ Phase 3: Category Management (Completed)
+- [x] Category listing with comprehensive statistics dashboard
+- [x] Individual category detail pages with recent issues
+- [x] Pre-defined categories (Build Issues, Deployment, Environment, Code Quality, Performance, Security)
+- [x] Category-based issue filtering and navigation
+- [x] Days since last accident tracking per category
+- [x] Integration with existing issue management system
+
 ### 🚧 Next Phases (Planned)
-- **Phase 2**: Issues CRUD Operations
-- **Phase 3**: Solutions Management
-- **Phase 4**: Advanced Search & Categories
-- **Phase 5**: MCP Server Integration
-- **Phase 6**: Analytics & Reporting
+- **Phase 4**: Solutions Management
+- **Phase 5**: Advanced Search & File Attachments
+- **Phase 6**: MCP Server Integration
+- **Phase 7**: AI-Enhanced Features
+- **Phase 8**: Production Deployment
 
 ## 🤝 Contributing
 
