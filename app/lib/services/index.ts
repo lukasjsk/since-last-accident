@@ -72,6 +72,14 @@ export const IssueService = {
 
 // Solution service with business logic
 export const SolutionService = {
+  async findAll(issueId?: number) {
+    return SolutionModel.findAll(issueId);
+  },
+
+  async findById(id: number) {
+    return SolutionModel.findById(id);
+  },
+
   async createSolution(data: NewSolution, userId: number) {
     const solutionData = {
       ...data,
@@ -93,15 +101,37 @@ export const SolutionService = {
     return solution;
   },
 
-  async updateSolution(id: number, data: Partial<NewSolution>, _userId: number) {
+  async updateSolution(id: number, data: Partial<NewSolution>, userId: number) {
     const updateData = {
       ...data,
       updatedAt: new Date()
     };
 
-    return SolutionModel.update(id, updateData);
+    const updatedSolution = await SolutionModel.update(id, updateData);
+
+    // If solution effectiveness rating is updated to 4+, consider marking issue as resolved
+    if (data.effectivenessRating && data.effectivenessRating >= 4 && updatedSolution) {
+      const issue = await IssueModel.findById(updatedSolution.issueId);
+      if (issue && issue.status !== "resolved") {
+        await IssueService.updateIssue(updatedSolution.issueId, { status: "resolved" }, userId);
+      }
+    }
+
+    return updatedSolution;
+  },
+
+  async deleteSolution(id: number) {
+    return SolutionModel.delete(id);
+  },
+
+  async findByIssueId(issueId: number) {
+    return SolutionModel.findByIssueId(issueId);
+  },
+
+  async verifySolution(id: number, userId: number) {
+    return this.updateSolution(id, { verified: true }, userId);
   }
-};
+};;
 
 // Category service with business logic
 export const CategoryService = {
