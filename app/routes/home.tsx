@@ -103,9 +103,11 @@ export default function Home() {
                       Search Issues
                     </Button>
                   </Link>
-                  <Button variant="outline" className="w-full" disabled>
-                    View Categories
-                  </Button>
+                  <Link to="/categories" className="w-full">
+                    <Button variant="outline" className="w-full">
+                      View Categories
+                    </Button>
+                  </Link>
                   <Button variant="outline" className="w-full" disabled>
                     Analytics
                   </Button>

@@ -11,4 +11,8 @@ export default [
   route("issues/new", "routes/issues.new.tsx"),
   route("issues/:id", "routes/issues.$id.tsx"),
   route("issues/:id/edit", "routes/issues.$id.edit.tsx"),
+  
+  // Categories routes
+  route("categories", "routes/categories._index.tsx"),
+  route("categories/:id", "routes/categories.$id.tsx"),
 ] satisfies RouteConfig;
