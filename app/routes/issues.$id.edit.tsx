@@ -83,7 +83,7 @@ export default function EditIssue() {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8 max-w-2xl">
+    <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <div className="mb-8">
         <div className="flex items-center gap-2 text-sm text-gray-500 mb-2">
           <Link to="/issues" className="hover:text-gray-700">Issues</Link>

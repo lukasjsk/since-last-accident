@@ -106,7 +106,7 @@ export default function Login() {
   const error = actionData && "error" in actionData ? actionData.error : undefined;
 
   return (
-    <div className="flex justify-center items-center min-h-screen">
+    <div className="flex justify-center items-center min-h-screen px-4">
       <div className="w-full max-w-md">
         <LoginForm error={error} />
       </div>

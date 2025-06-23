@@ -58,7 +58,7 @@ export default function NewIssue() {
   const actionData = useActionData<typeof action>();
 
   return (
-    <div className="container mx-auto px-4 py-8 max-w-2xl">
+    <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-gray-900">Create New Issue</h1>
         <p className="text-gray-600 mt-2">Report a new incident or problem</p>
